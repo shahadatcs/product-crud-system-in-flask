@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>B2B Products</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1 style="text-align: center;">B2B Products</h1>
+    <a href="{{ url_for('auth.add_product') }}" class="btn btn-primary">Add Product</a>
+    <div class="row mt-3">
+        {% for product in products %}
+        <div class="col-md-2 mb-4">
+            <div class="">
+                <img src="{{ url_for('static',  filename='asset/image/' + product.image) }}" alt="Product Image" style="height: 120px; width: 150px;" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text"><strong>Price: {{ product.price }}</strong></p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ url_for('auth.view_product', product_id=product._id) }}" class="btn btn-info btn-sm">View</a>
+                    <a href="{{ url_for('auth.edit_product', product_id=product._id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ url_for('auth.delete_product', product_id=product._id) }}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
